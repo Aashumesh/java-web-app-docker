@@ -17,8 +17,8 @@ node{
         sh "docker build -t ashwinimesh/jave-web-app:${buildNumber} ."
     }
     stage("Docker Login And Push"){
-        withCredentials([string(credentialsId: 'docker_Hub_Pwd', variable: 'docker_Hub_Pwd')]) {
-            sh "docker login -u ashwinimesh -p ${docker_Hub_Pwd}"
+       withCredentials([string(credentialsId: 'Docker_Hub_Pwd', variable: 'Docker_Hub_Passwd')]) {
+            sh "docker login -u ashwinimesh -p ${Docker_Hub_Passwd}"
     // some block
     }
         sh "docker push ashwinimesh/jave-web-app:${buildNumber}"
