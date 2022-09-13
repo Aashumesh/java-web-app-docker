@@ -14,22 +14,23 @@ node{
        
     stage("Build Docker Image"){
     
-        sh "docker build -t ashwinimesh/jave-web-app:${buildNumber} ."
+        sh "docker build -t ashwinimesh/java-web-app:${buildNumber} ."
     }
+    
     stage("Docker Login And Push"){
        withCredentials([string(credentialsId: 'Docker_Hub_Pwd', variable: 'Docker_Hub_Passwd')]) {
             sh "docker login -u ashwinimesh -p ${Docker_Hub_Passwd}"
-    // some block
     }
-        sh "docker push ashwinimesh/jave-web-app:${buildNumber}"
+            sh "docker push ashwinimesh/java-web-app:${buildNumber}"
     }
     
     stage("Deploy Application As Docker Container In Docker Deployment Server"){
        sshagent(['Docker-Dev-Server-SSH']) {
            
           sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.0.13 docker rm -f javawebappcontainer || true" 
-          sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.0.13 docker run -d -p 80:80 ashwinimesh/jave-web-app:${buildNumber}"
+          sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.0.13 docker run -d -p 80:80 ashwinimesh/java-web-app:${buildNumber}"
                     
        }    
     }
 }
+
