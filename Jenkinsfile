@@ -27,8 +27,8 @@ node{
     stage("Deploy Application As Docker Container In Docker Deployment Server"){
        sshagent(['Docker-Dev-Server-SSH']) {
            
-          sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.0.13 docker rm -f javawebappcontainer || true" 
-          sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.0.13 docker run -d -p 80:80 ashwinimesh/java-web-app:${buildNumber}"
+          sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.34.2 docker rm -f javawebappcontainer || true" 
+          sh "ssh -o StrictHostKeyChecking=no ubuntu@172.31.34.2 docker run -d -p 80:80 ashwinimesh/java-web-app:${buildNumber}"
                     
        }    
     }
